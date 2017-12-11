@@ -9,7 +9,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueSession from 'vue-session'
 
-Vue.prototype.api = 'backend-ekzhstndlo.now.sh'
+Vue.prototype.api = 'backend-agyntxgmxx.now.sh'
 Vue.use(Vuetify, {
   theme: {
     primary: '#7cb342',
