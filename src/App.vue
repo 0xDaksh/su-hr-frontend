@@ -34,7 +34,7 @@
     <v-content>
       <v-container fluid>
         <v-slide-y-transition mode="out-in">
-          <v-layout column align-center>
+          <v-layout column>
             <router-view :loggedIn="loggedIn" :user="user"></router-view>
           </v-layout>
         </v-slide-y-transition>

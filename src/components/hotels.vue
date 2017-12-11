@@ -1,11 +1,34 @@
 <template>
   <div>
-    <v-progress-circular indeterminate color="green" v-show="loading" :size="50" class="main"></v-progress-circular>
+    <!-- <v-progress-circular indeterminate color="green" v-show="loading" :size="50" class="main"></v-progress-circular> -->
+    <v-progress-linear v-bind:indeterminate="true" class="main"></v-progress-linear>
     <div v-show="error.is" class="main">
       <h2>{{error.whattosay}}</h2>
     </div>
     <div v-show="!loading && !error.is">
-      // display hotels here!
+      <div>
+        <v-flex xs12>
+          <v-card color="cyan darken-2" class="white--text">
+            <v-container fluid grid-list-lg>
+              <v-layout row>
+                <v-flex xs7>
+                  <div>
+                    <div class="headline">Supermodel</div>
+                    <div>Foster the People</div>
+                  </div>
+                </v-flex>
+                <v-flex xs5>
+                  <v-card-media
+                    src="/static/doc-images/cards/foster.jpg"
+                    height="125px"
+                    contain
+                  ></v-card-media>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-card>
+        </v-flex>
+      </div>
     </div>
   </div>
 </template>
@@ -21,6 +44,8 @@ a
   text-align center
   min-height calc(100vh - 55px)
   margin 0 25px
+.progress-linear__background
+  width unset !important
 </style>
 
 <script>
@@ -59,7 +84,7 @@ a
     beforeMount() {
       setTimeout(() => {
         this.getHotels()
-      }, 1000)
+      }, 1000000)
     }
   }
 </script>
