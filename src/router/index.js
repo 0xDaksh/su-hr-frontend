@@ -5,6 +5,7 @@ import Hotels from '@/components/hotels'
 import Login from '@/components/login'
 import Logout from '@/components/logout'
 import Hotel from '@/components/hotel'
+import fourofour from '@/components/404'
 
 Vue.use(Router)
 
@@ -35,6 +36,11 @@ export default new Router({
       path: '/hotels/:id',
       component: Hotel,
       name: 'Hotel'
+    },
+    {
+      path: '*',
+      component: fourofour,
+      name: '404'
     }
   ]
 })
