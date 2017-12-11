@@ -9,7 +9,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueSession from 'vue-session'
 
-Vue.prototype.api = 'localhost:7000'
+Vue.prototype.api = 'localhost:8000'
 Vue.use(Vuetify, {
   theme: {
     primary: '#7cb342',

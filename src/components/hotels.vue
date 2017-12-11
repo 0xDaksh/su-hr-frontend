@@ -27,37 +27,12 @@
             </div>
           </v-card-text>
         <v-card-actions>
-          <v-btn flat color="white">Book Now</v-btn>
+          <v-btn flat color="white" :to="`/hotels/${hotel.id}`">Book Now</v-btn>
         </v-card-actions>
       </v-card>
     </v-flex>
-
-
   </v-layout>
 </v-container>
-
-
-
-
-
-
-        <!-- <v-layout v-for="(hotelArr, i) in hotels" :key="i">
-          <v-flex xs6 sm6 md6 lg6 v-for="(hotel, k) in hotelArr" :key="k">
-            <v-card>
-              <v-card-media :src="hotel.image" height="200px">
-              </v-card-media>
-              <v-card-title primary-title>
-                <div>
-                  <h3 class="headline mb-0">{{hotel.name}}</h3>
-                  <div>{{hotel.address}}</div>
-                </div>
-              </v-card-title>
-              <v-card-actions>
-                <v-btn flat color="orange">Explore</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-flex>
-        </v-layout> -->
       </div>
     </div>
   </div>
@@ -109,11 +84,6 @@ a
           this.loading = false
           if(typeof data !== 'undefined' && typeof data.data !== 'undefined' && data.data.hotels !== null && typeof data.data.hotels.length !== 'undefined') {
             this.hotels = data.data.hotels
-            // data.data.hotels.forEach((e, idx) => { // IM A GOD BEECH
-            //   if(idx % 4 == 0 && idx !== 0) {
-            //     this.hotels.push([data.data.hotels[idx-3], data.data.hotels[idx-2], data.data.hotels[idx-1], data.data.hotels[idx]])
-            //   }
-            // })
           } else {
             this.error.is = true
             this.error.whattosay = 'Cannot Fetch Hotels right now, Please Try again later? Please?!'
