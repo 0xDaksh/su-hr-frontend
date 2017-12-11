@@ -1,7 +1,7 @@
 <template>
-  <div style="width: 66%;">
+  <div class="login-uncle">
     <div v-show="!loggedIn">
-      <div class="text-xs-center">
+      <div class="center">
         <v-btn round color="blue" dark @click="changeType">{{text}}</v-btn>
       </div>
       <v-snackbar
@@ -19,7 +19,7 @@
           label="Name"
           v-model="name"
           :rules="nameRules"
-          :counter="10"
+          :counter="20"
           required
         ></v-text-field>
         <v-text-field
@@ -36,14 +36,14 @@
           :rules="passwordRules"
           @keyup.enter="submit"
         ></v-text-field>
-        <div class="text-xs-center">
+        <div class="center">
           <v-btn large color="red" dark @click="submit">{{ !login ? "Sign-Up!" : "Login!"  }}</v-btn>
         </div>
       </v-form>
     </div>
     <div v-show="loggedIn">
-        <h2 class="text-xs-center">Yolo, You're already logged In Uncle / Auntie!</h2>
-        <div class="text-xs-center">
+        <h2 class="center">Yolo, You're already logged In Uncle / Auntie!</h2>
+        <div class="center">
           <v-btn large color="red" dark @click="$router.push('/')">Go Back Home!</v-btn>
         </div>
     </div>
@@ -68,7 +68,7 @@ export default {
           text: 'New to StayUncle, Signup?',
           nameRules: [
             (v) => !!v || 'Name is required',
-            (v) => v.length <= 10 || 'Name must be less than 10 characters'
+            (v) => v.length <= 20 || 'Name must be less than 20 characters'
           ],
           passwordRules: [
             (p) => !!p || 'Password is Required',
@@ -148,4 +148,16 @@ export default {
 </script>
 
 <style lang="stylus">
+.center
+  text-align: center
+.login-uncle
+  width: 80%
+  margin: 0 auto
+  display: flex
+  flex-direction: column
+  min-height: calc(100vh - 100px)
+  @media screen and (max-width: 600px)
+    min-height: calc(100vh - 92px)
+  justify-content: center
+  text-align: center
 </style>
