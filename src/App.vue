@@ -9,7 +9,7 @@
         <v-list-tile
           router
           :to="item.to"
-          value="true"
+          active-class="active"
           v-for="(item, i) in items"
           :key="i"
         >
@@ -54,14 +54,24 @@
   export default {
     data () {
       return {
-        drawer: true,
-        items: [{
-          icon: 'bubble_chart',
-          title: 'Inspire',
+        drawer: false,
+        items: [
+        {
+          icon: 'home',
+          title: 'Home',
           to: '/'
-        }],
+        },
+      {
+          icon: 'business',
+          title: 'Hotels',
+          to: '/hotels'
+      }
+    ],
         title: 'StayUncle'
       }
+    },
+    mounted() {
+      
     }
   }
 </script>
