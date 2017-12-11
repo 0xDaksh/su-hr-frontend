@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <v-navigation-drawer
-      fixed
-      v-model="drawer"
-      app
-    >
+    <v-navigation-drawer fixed v-model="drawer" app dark overlay temporary enable-resize-watcher overflow style="color: #fff;">
+      <section class="userinfo">
+        <img id="updIm" src="https://dontgetserious.com/wp-content/uploads/2016/04/StayUncle.Com-Lets-Unmarried-Indian-Couples-Book-Hotel-Rooms-Without-Being-Harassed.jpg" style="width: 100%;">
+        <span>StayUncle</span>
+      </section>
       <v-list>
         <v-list-tile
           router
@@ -21,8 +21,12 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
+      <div class="sidefooter">
+        <span>&copy; 2017 <a href="/">StayUncle</a></span>
+        <span>Designed and Developed By <a href="//dak.sh">Daksh</a>.</span>
+      </div>
     </v-navigation-drawer>
-    <v-toolbar fixed app :clipped-left="clipped">
+    <v-toolbar fixed app dark>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
@@ -41,6 +45,10 @@
     </v-footer>
   </v-app>
 </template>
+
+<style lang="stylus">
+  @import './assets/stylus/app.styl'
+</style>
 
 <script>
   export default {
