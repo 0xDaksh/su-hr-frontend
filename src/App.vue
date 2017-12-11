@@ -3,7 +3,7 @@
     <v-navigation-drawer fixed v-model="drawer" app dark overlay temporary enable-resize-watcher overflow style="color: #fff;">
       <section class="userinfo">
         <img id="updIm" src="https://dontgetserious.com/wp-content/uploads/2016/04/StayUncle.Com-Lets-Unmarried-Indian-Couples-Book-Hotel-Rooms-Without-Being-Harassed.jpg" style="width: 100%;">
-        <span>StayUncle</span>
+        <span>{{user.name}}</span>
       </section>
       <v-list>
         <v-list-tile
@@ -35,7 +35,7 @@
       <v-container fluid>
         <v-slide-y-transition mode="out-in">
           <v-layout column align-center>
-
+            <router-view :loggedIn="loggedIn" :user="user"></router-view>
           </v-layout>
         </v-slide-y-transition>
       </v-container>
@@ -61,17 +61,75 @@
           title: 'Home',
           to: '/'
         },
-      {
+        {
           icon: 'business',
           title: 'Hotels',
           to: '/hotels'
-      }
-    ],
-        title: 'StayUncle'
+        }
+      ],
+        title: 'StayUncle',
+        loggedIn: false,
+        user: {
+          name: 'StayUncle',
+          hotels: []
+        }
       }
     },
-    mounted() {
-      
+    methods: {
+      checkLogin() {
+        this.$http.get('//localhost:8000/user').then(data => {
+          if(data.data.user == null) {
+            this.$session.destroy()
+            this.items = [
+            {
+              icon: 'home',
+              title: 'Home',
+              to: '/'
+            },
+            {
+              icon: 'launch',
+              title: 'Login',
+              to: '/login'
+            },
+            {
+              icon: 'business',
+              title: 'Hotels',
+              to: '/hotels'
+            }
+          ]
+          this.loggedIn = false
+          this.user = {
+            name: 'StayUncle',
+            hotels: []
+          }
+        } else {
+            this.$session.start()
+            this.$session.set('user', data.data.user)
+            this.user = data.data.user
+            this.loggedIn = true
+            this.items = [
+            {
+              icon: 'home',
+              title: 'Home',
+              to: '/'
+            },
+            {
+              icon: 'exit_to_app',
+              title: 'Logout',
+              to: '/logout'
+            },
+            {
+              icon: 'business',
+              title: 'Hotels',
+              to: '/hotels'
+            }
+          ]
+          }
+        })
+      }
+    },
+    created() {
+      this.checkLogin()
     }
   }
 </script>

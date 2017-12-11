@@ -1,12 +1,13 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.css'
-
 import App from './App'
 import router from './router'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+import VueSession from 'vue-session'
 
 Vue.use(Vuetify, {
   theme: {
@@ -16,6 +17,8 @@ Vue.use(Vuetify, {
     error: '#b71c1c'
   }
 })
+Vue.use(VueAxios, axios)
+Vue.use(VueSession)
 
 Vue.config.productionTip = false
 
