@@ -107,6 +107,7 @@ export default {
               })
               break;
             case false:
+              console.log(this.name, this.email, this.password)
               this.$http.post(`//${this.api}/signup`, {
                 name: this.name,
                 email: this.email,
@@ -121,12 +122,10 @@ export default {
                       this.error.is = true
                       break
                     case 'please provide email and password':
-                      this.error.text = 'Please validate the form'
+                      this.error.text = 'Please fill in the details correctly.'
                       this.error.is = true
                       break;
                   }
-                  this.error.text = 'It seems like you used an incorrect email and password pair.'
-                  this.error.is = true
                 }
               }).catch(err => {
                 this.error.text = 'Please Try again later, there has been an issue!'
