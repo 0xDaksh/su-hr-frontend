@@ -13,9 +13,17 @@
         <h1>{{hotel.name}}</h1>
         <p>{{hotel.address}}</p>
         <h2>Rating: {{hotel.averageRating}}</h2>
-        <v-btn large color="yellow darken-2" light class="elevation-10">BOOK IT TODAY</v-btn>
+        <v-btn large color="yellow darken-2" light class="elevation-10" @click="book" v-show="loggedIn">BOOK IT TODAY</v-btn>
       </div>
-
+      <v-snackbar
+        :timeout="error.timeout"
+        bottom
+        multi-line
+        v-model="booked"
+      >
+        The Hotel has been Successfully booked!
+      <v-btn flat color="pink" @click.native="booked = false">Close</v-btn>
+    </v-snackbar>
     </div>
   </div>
 </template>
@@ -34,12 +42,27 @@ export default {
         },
         id: '',
         error: {
+          timeout: 15000,
           is: false,
           text: ''
-        }
+        },
+        booked: false
     }
   },
   methods: {
+    book() {
+      this.$http.post(`//${this.api}/book`, { id: this.id }, {withCredentials: true}).then(res => {
+        if(!res.data.booked) {
+          this.error.text = 'Sorry, We cant book that room for you ;_; due to issues!'
+          this.error.is = true
+        } else {
+          this.booked = true
+        }
+      }).catch(e => {
+        this.error.text = 'Please Try again later, theres been an issue!'
+        this.error.is = true
+      })
+    },
     getData() {
       if(typeof this.$route.params.id !== 'undefined' && this.$route.params.id !== '') {
         this.id = this.$route.params.id
