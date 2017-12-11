@@ -41,7 +41,7 @@
         </div>
       </v-form>
     </div>
-    <div>
+    <div v-show="loggedIn">
         <h2 class="text-xs-center">Yolo, You're already logged In Uncle / Auntie!</h2>
         <div class="text-xs-center">
           <v-btn large color="red" dark @click="$router.push('/')">Go Back Home!</v-btn>
