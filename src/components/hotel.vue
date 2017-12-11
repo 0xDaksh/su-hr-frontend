@@ -1,9 +1,20 @@
 <template>
-  <div class="hotel-uncle">
+  <div>
     <div v-show="error.is">
-      <h2 style="font-size: 50px;">{{error.text}}</h2>
+      <div class="hotel-uncle">
+        <h2 style="font-size: 50px;">{{error.text}}</h2>
+      </div>
     </div>
     <div v-show="!error.is">
+      <div id="hotel-img" :style="`background: url('${hotel.image}');`">
+
+      </div>
+      <div class="hotel-info">
+        <h1>{{hotel.name}}</h1>
+        <p>{{hotel.address}}</p>
+        <h2>Rating: {{hotel.averageRating}}</h2>
+        <v-btn large color="yellow darken-2" light class="elevation-10">BOOK IT TODAY</v-btn>
+      </div>
 
     </div>
   </div>
@@ -77,4 +88,5 @@ export default {
     min-height: calc(100vh - 92px)
   justify-content: center
   text-align: center
+@import '../assets/stylus/hotel'
 </style>

@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="logout-uncle">
     <div v-show="loggedIn">
-      <v-progress-circular indeterminate color="green" :size="50" class="main"></v-progress-circular>
+      <v-progress-linear v-bind:indeterminate="true"></v-progress-linear>
     </div>
     <div v-show="!loggedIn">
       <h2 class="center">Yolo, You need to login to Logout Uncle / Aunty !</h2>
@@ -20,7 +20,7 @@ export default {
       if(json.data.loggedOut) {
         setTimeout(() => {
           window.location = '/'
-        }, 500)
+        },1500)
       }
     })
   }
@@ -39,4 +39,5 @@ export default {
     min-height: calc(100vh - 92px)
   justify-content: center
   text-align: center
+  align-content: center
 </style>
