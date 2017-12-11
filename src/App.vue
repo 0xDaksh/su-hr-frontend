@@ -32,7 +32,7 @@
       <v-spacer></v-spacer>
     </v-toolbar>
     <v-content>
-      <v-container fluid>
+      <v-container fluid style="padding: 0;">
         <v-slide-y-transition mode="out-in">
           <v-layout column>
             <router-view :loggedIn="loggedIn" :user="user"></router-view>
