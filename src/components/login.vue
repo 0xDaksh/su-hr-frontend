@@ -4,6 +4,15 @@
       <div class="text-xs-center">
         <v-btn round color="blue" dark @click="changeType">{{text}}</v-btn>
       </div>
+      <v-snackbar
+        :timeout="error.timeout"
+        bottom
+        multi-line
+        v-model="error.is"
+      >
+      {{ error.text }}
+      <v-btn flat color="pink" @click.native="error.is = false">Close</v-btn>
+    </v-snackbar>
       <v-form v-model="valid">
         <v-text-field
           v-if="!login"
@@ -24,9 +33,11 @@
           v-model="password"
           required
           type="password"
+          :rules="passwordRules"
+          @keyup.enter="submit"
         ></v-text-field>
         <div class="text-xs-center">
-          <v-btn large color="red" dark>{{ !login ? "Sign-Up!" : "Login!"  }}</v-btn>
+          <v-btn large color="red" dark @click="submit">{{ !login ? "Sign-Up!" : "Login!"  }}</v-btn>
         </div>
       </v-form>
     </div>
@@ -40,6 +51,11 @@ export default {
   data () {
         return {
           password: '',
+          error: {
+            is: false,
+            value: '',
+            timeout: 15000
+          },
           login: true,
           valid: false,
           name: '',
@@ -47,6 +63,10 @@ export default {
           nameRules: [
             (v) => !!v || 'Name is required',
             (v) => v.length <= 10 || 'Name must be less than 10 characters'
+          ],
+          passwordRules: [
+            (p) => !!p || 'Password is Required',
+            (p) => p.length >= 7 || "Password must be more than 7 characters."
           ],
           email: '',
           emailRules: [
@@ -66,6 +86,33 @@ export default {
         this.login = true
         this.text = "New to StayUncle, Signup?"
         return
+      },
+      submit() {
+        if(this.valid) {
+          switch(this.login) {
+            case true:
+              this.$http.post(`//${this.api}/login`, {
+                email: this.email,
+                password: this.password
+              }).then(data => {
+                if(typeof data.data !== 'undefined' && data.data.user !== null && data.data.error !== "please provide email and password") {
+                  window.location = '/'
+                } else {
+                  this.error.text = 'It seems like you used an incorrect email and password pair.'
+                  this.error.is = true
+                }
+              }).catch(err => {
+                this.error.text = 'Please Try again later, there has been an issue!'
+                this.error.is = true
+              })
+              break;
+            case false:
+              break;
+          }
+        } else {
+          this.error.text = 'Please Fill in the Details Correctly.'
+          this.error.is = true
+        }
       }
     }
 }
