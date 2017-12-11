@@ -41,6 +41,12 @@
         </div>
       </v-form>
     </div>
+    <div>
+        <h2 class="text-xs-center">Yolo, You're already logged In Uncle / Auntie!</h2>
+        <div class="text-xs-center">
+          <v-btn large color="red" dark @click="$router.push('/')">Go Back Home!</v-btn>
+        </div>
+    </div>
   </div>
 </template>
 
@@ -94,7 +100,7 @@ export default {
               this.$http.post(`//${this.api}/login`, {
                 email: this.email,
                 password: this.password
-              }).then(data => {
+              }, {withCredentials: true}).then(data => {
                 if(typeof data.data !== 'undefined' && data.data.user !== null && data.data.error !== "please provide email and password") {
                   window.location = '/'
                 } else {
@@ -107,12 +113,11 @@ export default {
               })
               break;
             case false:
-              console.log(this.name, this.email, this.password)
               this.$http.post(`//${this.api}/signup`, {
                 name: this.name,
                 email: this.email,
                 password: this.password
-              }).then(data => {
+              }, {withCredentials: true}).then(data => {
                 if(typeof data.data !== 'undefined' && data.data.user !== null && data.data.error === null) {
                   window.location = '/'
                 } else {

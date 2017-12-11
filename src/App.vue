@@ -3,7 +3,7 @@
     <v-navigation-drawer fixed v-model="drawer" app dark overlay temporary enable-resize-watcher overflow style="color: #fff;">
       <section class="userinfo">
         <img id="updIm" src="https://dontgetserious.com/wp-content/uploads/2016/04/StayUncle.Com-Lets-Unmarried-Indian-Couples-Book-Hotel-Rooms-Without-Being-Harassed.jpg" style="width: 100%;">
-        <span>{{user.name}}</span>
+        <span style="text-transform: capitalize;">{{user.name}}</span>
       </section>
       <v-list>
         <v-list-tile
@@ -77,7 +77,7 @@
     },
     methods: {
       checkLogin() {
-        this.$http.get(`//${this.api}/user`).then(data => {
+        this.$http.get(`//${this.api}/user`,  {withCredentials: true}).then(data => {
           if(typeof data !== 'undefined' && typeof data.data !== 'undefined' && data.data.user == null) {
             this.$session.destroy()
             this.items = [
