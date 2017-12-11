@@ -107,6 +107,31 @@ export default {
               })
               break;
             case false:
+              this.$http.post(`//${this.api}/signup`, {
+                name: this.name,
+                email: this.email,
+                password: this.password
+              }).then(data => {
+                if(typeof data.data !== 'undefined' && data.data.user !== null && data.data.error === null) {
+                  window.location = '/'
+                } else {
+                  switch(data.data.error) {
+                    case 'anotheraccount':
+                      this.error.text = 'Another account with same email exists, please use a different email.'
+                      this.error.is = true
+                      break
+                    case 'please provide email and password':
+                      this.error.text = 'Please validate the form'
+                      this.error.is = true
+                      break;
+                  }
+                  this.error.text = 'It seems like you used an incorrect email and password pair.'
+                  this.error.is = true
+                }
+              }).catch(err => {
+                this.error.text = 'Please Try again later, there has been an issue!'
+                this.error.is = true
+              })
               break;
           }
         } else {
