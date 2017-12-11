@@ -77,8 +77,8 @@
     },
     methods: {
       checkLogin() {
-        this.$http.get('//localhost:8000/user').then(data => {
-          if(data.data.user == null) {
+        this.$http.get(`//${this.api}/user`).then(data => {
+          if(typeof data !== 'undefined' && typeof data.data !== 'undefined' && data.data.user == null) {
             this.$session.destroy()
             this.items = [
             {
