@@ -59,6 +59,17 @@ export default {
 			  this.booked = true
 		  },
 		  error(er) {
+			  switch(er) {
+				  case 'server-issue':
+					this.error.text = 'Theres been an issue, Please Try again later!'
+					break;
+				  case 'no-money':
+					this.error.text = 'Sorry, you do not have enough balance. Please Recharge.'
+					break;
+				  case 'no-such-hotel':
+					this.error.text = 'No, Such hotel exists? are you sure you are at the right place?'
+					break;
+			  }
 			  this.error.is = true
 		  }
 	  }
