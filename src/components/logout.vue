@@ -16,13 +16,16 @@
 export default {
   props: ['loggedIn'],
   mounted() {
+	setTimeout(() => {
+		window.location = '/'
+	},15000)
     this.$http.get(`//${this.api}/logout`, {withCredentials: true}).then(json => {
       if(json.data.loggedOut) {
         setTimeout(() => {
           window.location = '/'
         },1500)
       }
-    })
+	})
   }
 }
 </script>

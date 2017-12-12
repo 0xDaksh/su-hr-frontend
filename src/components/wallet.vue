@@ -55,9 +55,23 @@
 				<v-flex xs12>
 					<v-card dark color="dark">
 						<v-card-text class="px-0">
-							Your Earlier Visits
+							Bookings
 						</v-card-text>
 					</v-card>
+        </v-toolbar>
+				<v-list>
+					<v-list-tile avatar v-for="(booking, i) in bookings" v-bind:key="i" @click="">
+						<v-list-tile-action>
+							<v-icon color="pink">business</v-icon>
+						</v-list-tile-action>
+						<v-list-tile-content>
+							<v-list-tile-title>Hotel: {{booking.hotel.name}}, Charges: {{booking.hotel.dailyRate}}, Tx: {{booking.id}}</v-list-tile-title>
+						</v-list-tile-content>
+						<v-list-tile-avatar>
+							<img v-bind:src="booking.hotel.image"/>
+						</v-list-tile-avatar>
+					</v-list-tile>
+				</v-list>
 				</v-flex>
 			</v-layout>
 		</v-container>
@@ -76,19 +90,21 @@ export default {
 		  balance: 0,
 		  rech: 0,
 		  snackbar: false,
-		  text: ''
+		  text: '',
+		  bookings: []
 	  }
   },
   methods: {
-	  getWalletBal() {
+	  getWallet() {
 		  this.$socket.emit('walletBalance')
+		  this.$socket.emit('getBookings')
 	  },
 	  recharge() {
 		  this.$socket.emit('rechargewallet', this.rech)
 	  }
   },
   mounted() {
-	  this.getWalletBal()
+	  this.getWallet()
   },
   socket: {
 	  events: {
@@ -100,6 +116,9 @@ export default {
 			  this.rech = 0
 			  this.text = 'Wallet has been recharged'
 			  this.snackbar = true
+		  },
+		  returnBookings(items) {
+			  this.bookings = items.reverse()
 		  }
 	  }
   }
@@ -107,7 +126,7 @@ export default {
 </script>
 
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 h2
 	font-size 4em
 </style>

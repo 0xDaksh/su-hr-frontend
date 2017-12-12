@@ -10,7 +10,7 @@ import VueAxios from 'vue-axios'
 import VueSession from 'vue-session'
 import VueWebSocket from 'vue-socket-io'
 
-Vue.prototype.api = 'localhost:8000'
+Vue.prototype.api = 'backend-iclmuoqjbu.now.sh'
 Vue.use(Vuetify, {
   theme: {
     primary: '#7cb342',

@@ -15,6 +15,7 @@
       <div class="hotel-info">
         <h1>{{hotel.name}}</h1>
         <p>{{hotel.address}}</p>
+		<h3 style="font-size: 30px;">Price: ₹{{hotel.price}}</h3>
         <h2>Rating: {{hotel.averageRating}}</h2>
         <v-btn large color="yellow darken-2" light class="elevation-10" @click="book" v-show="loggedIn">BOOK IT TODAY</v-btn>
       </div>
@@ -22,10 +23,10 @@
         :timeout="error.timeout"
         bottom
         multi-line
-        v-model="booked"
+        v-model="snack.show"
       >
-        The Hotel has been Successfully booked!
-      <v-btn flat color="pink" @click.native="booked = false">Close</v-btn>
+        {{snack.text}}
+      <v-btn flat color="pink" @click.native="snack.show = false">Close</v-btn>
     </v-snackbar>
     </div>
   </div>
@@ -50,21 +51,26 @@ export default {
           is: false,
           text: ''
         },
-        booked: false
+        snack: {
+			show: false,
+			text: ''
+		}
     }
   },
   socket: {
 	  events: {
-		  returnBooking() {
-			  this.booked = true
+		  returnBooking(val) {
+			  this.snack.text = "The Hotel Has Been Booked, Please Check your Wallet for any other Clarifications."
+			  this.snack.show = true
 		  },
-		  error(er) {
+		  err(er) {
 			  switch(er) {
 				  case 'server-issue':
 					this.error.text = 'Theres been an issue, Please Try again later!'
 					break;
 				  case 'no-money':
-					this.error.text = 'Sorry, you do not have enough balance. Please Recharge.'
+					this.snack.text = 'Sorry, you do not have enough balance. Please Recharge.'
+					return this.snack.show = true
 					break;
 				  case 'no-such-hotel':
 					this.error.text = 'No, Such hotel exists? are you sure you are at the right place?'
