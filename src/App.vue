@@ -78,15 +78,8 @@
           name: 'StayUncle',
 		  hotels: [],
 		  avatar: 'https://dontgetserious.com/wp-content/uploads/2016/04/StayUncle.Com-Lets-Unmarried-Indian-Couples-Book-Hotel-Rooms-Without-Being-Harassed.jpg'
-        }
-      }
-    },
-    methods: {
-      checkLogin() {
-        this.$http.get(`//${this.api}/user`,  {withCredentials: true}).then(data => {
-          if(typeof data !== 'undefined' && typeof data.data !== 'undefined' && data.data.user == null) {
-            this.$session.destroy()
-            this.items = [
+		},
+		loginItems: [
             {
               icon: 'home',
               title: 'Home',
@@ -102,9 +95,39 @@
               title: 'Hotels',
               to: '/hotels'
             }
+		  ],
+		logoutItems: [
+            {
+				icon: 'home',
+				title: 'Home',
+				to: '/'
+            },
+            {
+				icon: 'business',
+				title: 'Hotels',
+				to: '/hotels'
+			},
+			{
+				icon: 'account_balance_wallet',
+				title: 'Wallet',
+				to: '/wallet'
+			},
+            {
+				icon: 'exit_to_app',
+				title: 'Logout',
+				to: '/logout'
+            }
           ]
-          this.loggedIn = false
-          this.user = {
+      }
+    },
+    methods: {
+      checkLogin() {
+        this.$http.get(`//${this.api}/user`,  {withCredentials: true}).then(data => {
+          if(typeof data !== 'undefined' && typeof data.data !== 'undefined' && data.data.user == null) {
+			this.$session.destroy()
+            this.items = this.loginItems
+          	this.loggedIn = false
+          	this.user = {
             name: 'StayUncle',
             hotels: []
           }
@@ -113,23 +136,7 @@
             this.$session.set('user', data.data.user)
             this.user = data.data.user
             this.loggedIn = true
-            this.items = [
-            {
-              icon: 'home',
-              title: 'Home',
-              to: '/'
-            },
-            {
-              icon: 'exit_to_app',
-              title: 'Logout',
-              to: '/logout'
-            },
-            {
-              icon: 'business',
-              title: 'Hotels',
-              to: '/hotels'
-            }
-          ]
+            this.items = this.logoutItems
           }
         })
       }
