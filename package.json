@@ -15,6 +15,7 @@
     "vue-axios": "^2.0.2",
     "vue-router": "^3.0.1",
     "vue-session": "^0.9.10",
+    "vue-socket.io": "^2.1.1-a",
     "vuetify": "^0.17.4"
   },
   "devDependencies": {
