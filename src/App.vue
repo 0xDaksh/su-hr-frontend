@@ -60,7 +60,12 @@
           icon: 'home',
           title: 'Home',
           to: '/'
-        },
+		},
+		{
+			icon: 'launch',
+			title: 'Login',
+			to: '/login'
+		},
         {
           icon: 'business',
           title: 'Hotels',

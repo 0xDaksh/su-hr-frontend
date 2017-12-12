@@ -1,11 +1,14 @@
 <template>
   <div>
+	<div v-show="!error.is && loading" class="main">
+		<v-progress-linear v-bind:indeterminate="true"></v-progress-linear>
+	</div>
     <div v-show="error.is">
       <div class="hotel-uncle">
         <h2 style="font-size: 50px;">{{error.text}}</h2>
       </div>
     </div>
-    <div v-show="!error.is">
+    <div v-show="!loading && !error.is">
       <div id="hotel-img" :style="`background: url('${hotel.image}');`">
 
       </div>
@@ -34,6 +37,7 @@ export default {
   props: ['loggedIn', 'user'],
   data() {
     return {
+		loading: true,
         hotel: {
           address: '',
           averageRating: '',
@@ -69,7 +73,9 @@ export default {
         this.$http.get(`//${this.api}/hotels/${this.id}`).then(res => {
           if(res.data.hotel !== null) {
             this.hotel = res.data.hotel
-            console.log(this.hotel)
+			setTimeout(() => {
+				this.loading = false
+			}, 500)
           } else {
             switch(res.data.error) {
               case 'server issue':

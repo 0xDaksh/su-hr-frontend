@@ -21,18 +21,3 @@ export default {
   props: ['loggedIn', 'user']
 }
 </script>
-
-<style lang="stylus">
-  a
-    text-decoration none
-  .main
-    width: 80%
-    margin: 0 auto
-    display: flex
-    flex-direction: column
-    min-height: calc(100vh - 100px)
-    @media screen and (max-width: 600px)
-      min-height: calc(100vh - 92px)
-    justify-content: center
-    text-align: center
-</style>
