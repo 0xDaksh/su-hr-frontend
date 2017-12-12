@@ -1,5 +1,14 @@
 <template>
 	<div>
+    <v-snackbar
+      :timeout="150000"
+      bottom
+      multi-line
+      v-model="snackbar"
+    >
+      {{ text }}
+      <v-btn flat color="pink" @click.native="snackbar = false">Close</v-btn>
+    </v-snackbar>
 		<div v-show="error.is || !loggedIn" class="main">
 			<h2>{{error.text}}</h2>
 		</div>
@@ -30,6 +39,18 @@
 							Operations
 						</v-card-text>
 					</v-card>
+					<div style="padding-top: 1%;">
+						<v-text-field
+						name="amt"
+						label="Amount In Rupees"
+						type="number"
+						min=0
+						max=10000
+						v-model="rech"
+						@keyup.enter="recharge"
+						></v-text-field>
+						<v-btn color="blue" dark @click="recharge">Recharge</v-btn>
+					</div>
 				</v-flex>
 				<v-flex xs12>
 					<v-card dark color="dark">
@@ -52,12 +73,18 @@ export default {
 			  is: false,
 			  text: 'Please Login to Access the Wallet.'
 		  },
-		  balance: 0
+		  balance: 0,
+		  rech: 0,
+		  snackbar: false,
+		  text: ''
 	  }
   },
   methods: {
 	  getWalletBal() {
 		  this.$socket.emit('walletBalance')
+	  },
+	  recharge() {
+		  this.$socket.emit('rechargewallet', this.rech)
 	  }
   },
   mounted() {
@@ -67,6 +94,12 @@ export default {
 	  events: {
 		  returnWalletBalance(amt) {
 			  this.balance = amt
+		  },
+		  returnRechargeWallet(value) {
+			  this.balance = value
+			  this.rech = 0
+			  this.text = 'Wallet has been recharged'
+			  this.snackbar = true
 		  }
 	  }
   }
