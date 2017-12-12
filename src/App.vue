@@ -2,7 +2,7 @@
   <v-app>
     <v-navigation-drawer fixed v-model="drawer" app dark overlay temporary enable-resize-watcher overflow style="color: #fff;">
       <section class="userinfo">
-        <img id="updIm" :src="user.avatar" style="width: 100%;">
+        <img id="updIm" :src="avatar" style="width: 100%;">
         <span style="text-transform: capitalize;">{{user.name}}</span>
       </section>
       <v-list>
@@ -77,8 +77,8 @@
         user: {
           name: 'StayUncle',
 		  hotels: [],
-		  avatar: 'https://dontgetserious.com/wp-content/uploads/2016/04/StayUncle.Com-Lets-Unmarried-Indian-Couples-Book-Hotel-Rooms-Without-Being-Harassed.jpg'
 		},
+		avatar: 'https://dontgetserious.com/wp-content/uploads/2016/04/StayUncle.Com-Lets-Unmarried-Indian-Couples-Book-Hotel-Rooms-Without-Being-Harassed.jpg',
 		loginItems: [
             {
               icon: 'home',
@@ -128,13 +128,15 @@
             this.items = this.loginItems
           	this.loggedIn = false
           	this.user = {
-            name: 'StayUncle',
-            hotels: []
-          }
+				name: 'StayUncle',
+				hotels: []
+		  }
+		  this.avatar = 'https://dontgetserious.com/wp-content/uploads/2016/04/StayUncle.Com-Lets-Unmarried-Indian-Couples-Book-Hotel-Rooms-Without-Being-Harassed.jpg'
         } else {
             this.$session.start()
             this.$session.set('user', data.data.user)
-            this.user = data.data.user
+			this.user = data.data.user
+			this.avatar = data.data.user.avatar
             this.loggedIn = true
             this.items = this.logoutItems
           }

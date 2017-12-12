@@ -6,6 +6,7 @@ import Login from '@/components/login'
 import Logout from '@/components/logout'
 import Hotel from '@/components/hotel'
 import fourofour from '@/components/404'
+import wallet from '@/components/wallet'
 
 Vue.use(Router)
 
@@ -36,6 +37,11 @@ export default new Router({
       path: '/hotels/:id',
       component: Hotel,
       name: 'Hotel'
+	},
+    {
+      path: '/wallet',
+      component: wallet,
+      name: 'Wallet'
     },
     {
       path: '*',
