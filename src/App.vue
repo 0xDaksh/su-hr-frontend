@@ -2,7 +2,7 @@
   <v-app>
     <v-navigation-drawer fixed v-model="drawer" app dark overlay temporary enable-resize-watcher overflow style="color: #fff;">
       <section class="userinfo">
-        <img id="updIm" src="https://dontgetserious.com/wp-content/uploads/2016/04/StayUncle.Com-Lets-Unmarried-Indian-Couples-Book-Hotel-Rooms-Without-Being-Harassed.jpg" style="width: 100%;">
+        <img id="updIm" :src="user.avatar" style="width: 100%;">
         <span style="text-transform: capitalize;">{{user.name}}</span>
       </section>
       <v-list>
@@ -76,7 +76,8 @@
         loggedIn: false,
         user: {
           name: 'StayUncle',
-          hotels: []
+		  hotels: [],
+		  avatar: 'https://dontgetserious.com/wp-content/uploads/2016/04/StayUncle.Com-Lets-Unmarried-Indian-Couples-Book-Hotel-Rooms-Without-Being-Harassed.jpg'
         }
       }
     },
