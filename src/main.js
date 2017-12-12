@@ -8,6 +8,7 @@ import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueSession from 'vue-session'
+import VueWebSocket from 'vue-socket-io'
 
 Vue.prototype.api = 'localhost:8000'
 Vue.use(Vuetify, {
@@ -20,6 +21,7 @@ Vue.use(Vuetify, {
 })
 Vue.use(VueAxios, axios)
 Vue.use(VueSession)
+Vue.use(VueWebSocket, `//${Vue.prototype.api}`)
 
 Vue.config.productionTip = false
 
