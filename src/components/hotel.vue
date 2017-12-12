@@ -43,7 +43,7 @@ export default {
           averageRating: '',
           name: '',
           image: ''
-        },
+		},
         id: '',
         error: {
           timeout: 15000,
@@ -53,19 +53,19 @@ export default {
         booked: false
     }
   },
+  socket: {
+	  events: {
+		  returnBooking() {
+			  this.booked = true
+		  },
+		  error(er) {
+			  this.error.is = true
+		  }
+	  }
+  },
   methods: {
     book() {
-      this.$http.post(`//${this.api}/book`, { id: this.id }, {withCredentials: true}).then(res => {
-        if(!res.data.booked) {
-          this.error.text = 'Sorry, We cant book that room for you ;_; due to issues!'
-          this.error.is = true
-        } else {
-          this.booked = true
-        }
-      }).catch(e => {
-        this.error.text = 'Please Try again later, theres been an issue!'
-        this.error.is = true
-      })
+		this.$socket.emit('bookHotel', this.id)
     },
     getData() {
       if(typeof this.$route.params.id !== 'undefined' && this.$route.params.id !== '') {
